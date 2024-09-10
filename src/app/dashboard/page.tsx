@@ -3,11 +3,14 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/firebase/firebase-admin";
 import Image from "next/image";
 import SignOut from "../components/SignOut";
+import LinkAccountButtons from "../components/LinkAccountButtons";
 
 export default async function DashboardPage() {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) redirect("/");
+
+  console.log(currentUser);
 
   return (
     <main className="w-screen h-screen flex justify-center items-center font-mono">
@@ -24,7 +27,10 @@ export default async function DashboardPage() {
           />
           <p className="text-xl">{`${currentUser.displayName}`}</p>
         </div>
-        <SignOut />
+        <div className="w-full flex flex-col justify-center items-center">
+          <LinkAccountButtons currentUser={currentUser} />
+          <SignOut />
+        </div>
       </div>
     </main>
   );

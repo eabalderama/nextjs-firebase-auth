@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Firebase from "@/assets/firebase.svg";
-import { SignInWithGoogle } from "./components/SignInGoogle";
 import { isUserAuthenticated } from "@/lib/firebase/firebase-admin";
 import { redirect } from "next/navigation";
+import ProviderButtons from "./components/ProviderButtons";
 
 export default async function Home() {
   if (await isUserAuthenticated()) redirect("/dashboard");
@@ -11,7 +11,7 @@ export default async function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <div className="flex flex-row justify-center gap-4">
           <Image
-            className="dark:invert"
+            className="invert dark:invert-0"
             src="https://nextjs.org/icons/next.svg"
             alt="Next.js logo"
             width={180}
@@ -26,8 +26,8 @@ export default async function Home() {
             priority
           />
         </div>
-        <div className="w-full flex flex-row justify-center items-center">
-          <SignInWithGoogle />
+        <div className="w-full flex flex-col justify-center items-center gap-1">
+          <ProviderButtons />
         </div>
       </main>
     </div>

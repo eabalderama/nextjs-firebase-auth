@@ -17,7 +17,7 @@ export default function SignOut() {
 
   return (
     <button
-      className={`bg-primary mt-1 bg-white text-slate-950 font-semibold px-2 py-1 rounded-md`}
+      className={`bg-primary mt-1 max-w-xs w-full bg-red-500 text-gray-200 font-semibold px-2 py-1 rounded-md`}
       onClick={handleSignOut}
     >
       {isLoading ? "Loading..." : `Sign Out`}

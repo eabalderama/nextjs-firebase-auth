@@ -10,8 +10,6 @@ export default async function DashboardPage() {
 
   if (!currentUser) redirect("/");
 
-  console.log(currentUser);
-
   return (
     <main className="w-screen h-screen flex justify-center items-center font-mono">
       <div className="w-full max-w-screen-sm text-center">
@@ -28,7 +26,9 @@ export default async function DashboardPage() {
           <p className="text-xl">{`${currentUser.displayName}`}</p>
         </div>
         <div className="w-full flex flex-col justify-center items-center">
-          <LinkAccountButtons currentUser={currentUser} />
+          <LinkAccountButtons
+            currentUser={JSON.parse(JSON.stringify(currentUser.toJSON()))}
+          />
           <SignOut />
         </div>
       </div>

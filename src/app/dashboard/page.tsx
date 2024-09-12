@@ -26,9 +26,7 @@ export default async function DashboardPage() {
           <p className="text-xl">{`${currentUser.displayName}`}</p>
         </div>
         <div className="w-full flex flex-col justify-center items-center">
-          <LinkAccountButtons
-            currentUser={JSON.parse(JSON.stringify(currentUser.toJSON()))}
-          />
+          <LinkAccountButtons />
           <SignOut />
         </div>
       </div>

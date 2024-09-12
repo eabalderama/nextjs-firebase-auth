@@ -9,14 +9,12 @@ import {
 import LinkAccount, { LinkAccountProps } from "./LinkAccount";
 import { toast } from "sonner";
 
-import { UserRecord } from "firebase-admin/auth";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
-export default function LinkAccountButtons({
-  currentUser,
-}: {
-  currentUser: UserRecord;
-}) {
+export default function LinkAccountButtons() {
   const auth = getAuth();
+  const currentUser = useCurrentUser(auth);
+
   const providers: LinkAccountProps[] = [
     {
       name: "Github",
@@ -24,11 +22,11 @@ export default function LinkAccountButtons({
       action: async () => {
         const provider = new GithubAuthProvider();
 
-        if (!auth.currentUser) {
+        if (!currentUser) {
           return;
         }
         try {
-          await linkWithPopup(auth.currentUser, provider);
+          await linkWithPopup(currentUser, provider);
 
           toast("Successfully linked account");
         } catch (error) {
@@ -41,11 +39,11 @@ export default function LinkAccountButtons({
       provider: "google.com",
       action: async () => {
         const provider = new GoogleAuthProvider();
-        if (!auth.currentUser) {
+        if (!currentUser) {
           return;
         }
         try {
-          await linkWithPopup(auth.currentUser, provider);
+          await linkWithPopup(currentUser, provider);
 
           toast("Successfully linked account");
         } catch (error) {
@@ -57,12 +55,12 @@ export default function LinkAccountButtons({
 
   const filtered = providers.filter(
     (provider) =>
-      !currentUser.providerData.some(
+      !currentUser?.providerData.some(
         (user) => user.providerId === provider.provider.toLowerCase()
       )
   );
 
-  if (auth.currentUser === null) return null;
+  if (currentUser === null) return null;
 
   return (
     <>
